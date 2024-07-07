@@ -1,28 +1,42 @@
 const axios = require("axios");
 const cron = require("node-cron");
 const express = require("express");
+const dotenv = require("dotenv");
+const fs = require("fs").promises;
+dotenv.config();
 
 const API_URL = "https://miniapp-api.singsing.net/mission/check";
-const BEARER_TOKEN = process.env.token; // Replace with your actual Bearer Token
+
 const BODY_DATA = {
   mission_key: "repost_x1000",
 }; // Replace with your actual body data
 
 const hitApi = async () => {
   try {
-    const response = await axios.post(API_URL, BODY_DATA, {
-      headers: {
-        Authorization: `Bearer ${BEARER_TOKEN}`,
-        "Content-Type": "application/json",
-      },
-    });
-    console.log(`Response status: ${response.status}`);
-    console.log(response.data);
+    // Read the JSON file
+    const data = await fs.readFile("config.json", "utf-8");
+    const tokens = JSON.parse(data);
+
+    // Loop through each token and make API requests
+    for (const token of tokens) {
+      try {
+        const response = await axios.post(API_URL, BODY_DATA, {
+          headers: {
+            Authorization: `Bearer ${token.token}`,
+            "Content-Type": "application/json",
+          },
+        });
+        console.log(`Response status: ${response.status}`);
+        console.log(response.data);
+      } catch (error) {
+        console.error(`Error hitting the API with token ${token.id}:`, error);
+      }
+    }
   } catch (error) {
-    console.error("Error hitting the API:", error);
+    console.error("Error reading the tokens file:", error);
   }
 };
-
+hitApi();
 // Schedule the task to run every hour on the hour
 cron.schedule("0 * * * *", hitApi);
 
