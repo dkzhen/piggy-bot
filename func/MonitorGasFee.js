@@ -54,6 +54,7 @@ async function monitorGasAndExecute(contractAddress, contractABI, privateKey) {
         );
         await tx.wait();
         console.log("Transaction executed", tx.hash);
+
         // Delay execution retry by 2 hours
         await new Promise((resolve) => setTimeout(resolve, 2 * 60 * 60 * 1000));
       } else {
@@ -62,11 +63,13 @@ async function monitorGasAndExecute(contractAddress, contractABI, privateKey) {
         await new Promise((resolve) => setTimeout(resolve, 30 * 60 * 1000));
       }
       feeData = await provider.getFeeData();
+      claimApi = await callAPI();
     } catch (error) {
       console.error(`Error in claim: ${error}`);
       // Delay retry on error by 2 hours
       await new Promise((resolve) => setTimeout(resolve, 2 * 60 * 60 * 1000));
       feeData = await provider.getFeeData();
+      claimApi = await callAPI();
     }
   }
 }
