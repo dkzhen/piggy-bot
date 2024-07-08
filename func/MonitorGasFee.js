@@ -1,10 +1,10 @@
 const { ethers } = require("ethers");
-const { maxEthFee } = require("../configs/config");
+const { maxEthFee, gasLimit } = require("../configs/config");
 const callAPI = require("./ClaimWithFee");
 
 async function monitorGasAndExecute(contractAddress, contractABI, privateKey) {
   const provider = new ethers.providers.JsonRpcProvider(
-    "https://arb1.arbitrum.io/rpc"
+    "https://arbitrum.llamarpc.com"
   );
   const wallet = new ethers.Wallet(privateKey, provider);
 
@@ -29,7 +29,7 @@ async function monitorGasAndExecute(contractAddress, contractABI, privateKey) {
           claimApi.expire_time,
           claimApi.sign,
         ]),
-        gasLimit: 200000,
+        gasLimit: gasLimit,
       };
 
       const gasEstimate = await provider.estimateGas(transactionData);
@@ -49,7 +49,7 @@ async function monitorGasAndExecute(contractAddress, contractABI, privateKey) {
           claimApi.sign,
           {
             gasPrice: gasPrice,
-            gasLimit: 250000,
+            gasLimit: gasLimit,
           }
         );
         await tx.wait();
