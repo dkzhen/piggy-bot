@@ -3,8 +3,9 @@ const fs = require("fs").promises;
 const axios = require("axios");
 dotenv.config();
 
-const API_URL = "https://miniapp-api.singsing.net/mission?type=bonus_vault";
-const CLAIM_API_URL = "https://miniapp-api.singsing.net/mission/check";
+const API_URL = "https://cowtopia-be.tonfarmer.com/mission";
+const CLAIM_API_URL = "https://cowtopia-be.tonfarmer.com/mission/check";
+const TOKEN_API_URL = "https://cowtopia-be.tonfarmer.com/auth"
 
 exports.claimMission = async function () {
   try {
@@ -12,19 +13,41 @@ exports.claimMission = async function () {
     const data = await fs.readFile("configs/config.json", "utf-8");
     const tokens = JSON.parse(data);
 
-    // Loop through each token and make a GET request
+    const authTokens = []
     for (const token of tokens) {
+
+      try {
+        const res = await axios.post(TOKEN_API_URL, {
+        }, {
+          headers: {
+            "x-tg-data": token.token,
+          },
+        });
+        const accesToken = res.data.data
+      
+        authTokens.push(accesToken.access_token)
+       
+      } catch (error) {
+        console.log(error.message)
+      }
+      
+    }
+    
+   
+
+    // Loop through each token and make a GET request
+    for (const token of authTokens) {
       try {
         const response = await axios.get(API_URL, {
           headers: {
-            Authorization: `Bearer ${token.token}`,
+            Authorization: `Bearer ${token}`,
           },
         });
 
         const missions = response.data.data; // Assuming missions data is in response.data.data
-
+    
         // Loop through each mission and make API requests
-        for (const mission of missions) {
+        for (const mission of missions.missions) {
           if (!mission.completed) {
             try {
               const BODY_DATA = {
@@ -33,7 +56,7 @@ exports.claimMission = async function () {
 
               const claimResponse = await axios.post(CLAIM_API_URL, BODY_DATA, {
                 headers: {
-                  Authorization: `Bearer ${token.token}`,
+                  Authorization: `Bearer ${token}`,
                   "Content-Type": "application/json",
                 },
               });
@@ -44,16 +67,16 @@ exports.claimMission = async function () {
               console.log(claimResponse.data);
             } catch (error) {
               console.error(
-                `Error claiming mission ${mission.key} with token ${token.token}:`,
-                error
+                `Error claiming mission ${mission.key}:`,
+                error.response.status
               );
             }
           }
         }
       } catch (error) {
         console.error(
-          `Error fetching missions data with token ${token.token}:`,
-          error
+          `Error fetching missions data :`,
+          error.response.status
         );
       }
     }
