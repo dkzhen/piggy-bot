@@ -1,1 +1,0 @@
-# singsing-ruby-bot
