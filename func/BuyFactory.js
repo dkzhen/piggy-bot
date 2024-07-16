@@ -32,7 +32,7 @@ exports.buyFactory = async function () {
         console.log("not enough money to unlock factory");
       }
     } catch (error) {
-      console.log("error from unlock factory");
+      console.log("error from unlock factory", error.message);
     }
   }
 };

@@ -55,7 +55,7 @@ exports.buyAnimal = async function () {
         console.log("no factories available");
       }
     } catch (error) {
-      console.log("error from buy animal");
+      console.log("error from buy animal", error.message);
     }
   }
 };
