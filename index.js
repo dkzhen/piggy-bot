@@ -12,6 +12,7 @@ buyAnimal();
 
 cron.schedule("0 * * * *", claimMission);
 cron.schedule("0 * * * *", claimOfflineProfit);
+cron.schedule("0 * * * *", buyAnimal);
 // Start the server
 const port = process.env.PORT || 105;
 const app = express();
