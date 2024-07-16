@@ -2,10 +2,14 @@ const cron = require("node-cron");
 const express = require("express");
 const { claimMission } = require("./func/ClaimMission");
 const { claimOfflineProfit } = require("./func/ClaimOfflineProfit");
+const { checkValidToken, validateToken } = require("./func/CheckValidToken");
+const { buyAnimal } = require("./func/BuyAnimal");
 
 // Schedule the task to run every hour on the hour
 claimMission();
-claimOfflineProfit()
+claimOfflineProfit();
+buyAnimal();
+
 cron.schedule("0 * * * *", claimMission);
 cron.schedule("0 * * * *", claimOfflineProfit);
 // Start the server
