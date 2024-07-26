@@ -1,35 +1,35 @@
-# cowtopia-bot
+# blum-bot
 
-cowtopia-bot is a Telegram automation tool designed to help you manage and interact with [cowtopia bot](https://t.me/cowtopiabot/app?startapp=1370196228).
+blum-bot is a Telegram automation tool designed to help you manage and interact with [blum bot](https://t.me/BlumCryptoBot/app?startapp=ref_g5qK5BurG3).
 
 <p align="center">
-  <img src="public/cowtopia.png" alt="cowtopia" width="300"/>
+  <img src="public/blum.png" alt="blum" width="300"/>
 </p>
 
 ### Features
 
-- Auto claim Offline Rewards
-- Auto claim Hourly mission
-- Auto buy animal
-- Auto buy factory
+- Auto claim daily Rewards
+- Auto claim farming rewards
+- Auto play game with max points
+- Auto claim mission
 - support multi account
 
 ### How to use
 
-this bot running on my vps you can add your token authorization
+this bot running on my vps you can add your token query
 
 - open the bot [Group Organizer](https://t.me/GroupOrganizer_Bot)
 - send command `/start`
 - send command `/add`
-- select cowtopia-bot
-- and send your token authorization (start with `ey...`)
+- select blum-bot
+- and send your token query (start with `query=`)
 
-OR you can clone repository and add your token authorization
+OR you can clone repository and add your token query
 
 - Clone repository
 
 ```bash
-git clone https://github.com/singsing-ruby-bot/cowtopia-bot.git
+git clone https://github.com/dkzhen/blum-bot.git
 ```
 
 - add config.json on folder configs
@@ -37,10 +37,7 @@ git clone https://github.com/singsing-ruby-bot/cowtopia-bot.git
 ```json
 [
   {
-    "token": "eyJh"
-  },
-  {
-    "token": "eyJh"
+    "token": "query_id=AAFKwhUiAAAA.."
   }
 ]
 ```
@@ -59,16 +56,16 @@ npm run start
 
 [ WARNING ] this bot in development stage, if bot error you can try again. some error or bug will be fixed.
 
-### Token authorization
+### Token Query
 
-You can found on inspact element [F12] from telegram web. open the bot and see [ `on Headers Authorization from api request from cowtopia` ]
+You can found on inspact element [F12] from telegram web. open the bot and see [ `on application - session storage -__telegram__initParams - tgWebAppData ` ]
 
-- `Authorization: eyJ..`
+- `query_id=AAFKwhUiAAAA`
 
-- example Authorization
+- example query
 
 ```json
-"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ3YWxsZXRfYWRkcmVzcyI6IjB4ZkM3NEQzMkY3NzZBNDY5NzQ2ODA5MmI3ZmUzYzRjMDk4ODIzNTk3OSIsInVzZXJfaWQiOiI2NjcyNWJjMTQzNDRhZTJmMWEwNDdmZjUiLCJ0Z19pZCI6IjE0OTMyMzExMTUiLCJ1c2VybmFtZSI6IjE0OTMyMzExMTUiLCJpYXQiOjE3MjA1MTQ2MjAsImV4cCI6MTcyMTExOTQyMH0.1AE50yLVEw_Eda1NbpvyojhQ0oLq4hm8vJEAXKx8zMA"
+"query_id=AAFKwhUiAAAAAErCFSIcPoUl&user=%7B%22id%22%3A571851338%2C%22first_name%22%3A%22%21Zhen%20%7C%20RG%22%2C%22last_name%22%3A%22%22%2C%22username%22%3A%22dk_zhen%22%2C%22language_code%22%3A%22en%22%2C%22allows_write_to_pm%22%3Atrue%7D&auth_date=1721993224&hash=b5b6ea6964dbd45604d1eb29b1498df6d24b6a6c0a5f1bddf05684d7"
 ```
 
 ### Contact
