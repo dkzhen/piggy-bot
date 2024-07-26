@@ -1,12 +1,12 @@
 const { default: axios } = require("axios");
-const { getTokens } = require("./GetTokens");
 const { configDotenv } = require("dotenv");
+const { getAuthToken } = require("./getAuthToken");
 configDotenv();
 
 exports.validateToken = async () => {
-  const API_URL = "https://cowtopia-be.tonfarmer.com/user/offline-profit";
+  const API_URL = "https://game-domain.blum.codes/api/v1/tasks";
   const API_BE_URL = process.env.API_TOKEN || "http://localhost:101";
-  const tokens = await getTokens();
+  const tokens = await getAuthToken();
 
   const validToken = [];
   for (const token of tokens) {
@@ -17,8 +17,10 @@ exports.validateToken = async () => {
         },
       });
 
+      console.log("checking token done..");
       validToken.push(token);
     } catch (error) {
+      console.log(error);
       console.log("error from validate token");
       if (error.response.status === 401) {
         if (token.telegramId === undefined) {
