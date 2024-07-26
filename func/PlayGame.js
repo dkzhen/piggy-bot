@@ -62,7 +62,6 @@ exports.playGame = async () => {
       const availableGame = await checkAvailableGame(token);
       if (availableGame <= 1) {
         console.log("no game available");
-        return;
       } else {
         let gameCount = await checkAvailableGame(token);
         let count = 1;
