@@ -32,13 +32,15 @@ exports.mission = async () => {
                 },
               }
             );
-            console.log(start.data);
+            console.log(
+              `[ Running ] : Claim ${task.id} successfully. ${start.data}`
+            );
           } catch (error) {
             console.log(error.message);
           }
         }
       } else {
-        console.log("No task not started");
+        console.log(`[ Completed ] : No task not started.`);
       }
     }
   } catch (error) {
@@ -77,16 +79,18 @@ exports.claimMission = async () => {
                 },
               }
             );
-            console.log(claim.data);
+            console.log(
+              `[ Running ] : Claim mission successfully. ${claim.data}`
+            );
           } catch (error) {
-            console.log(error.message);
+            console.log(`[ Error ] : Claim mission failed. ${error.message}`);
           }
         }
       } else {
-        console.log("No task ready to claim");
+        console.log(`[ Completed ] : No task ready to claim.`);
       }
     }
   } catch (error) {
-    console.log("Error on claim mission: ", error.message);
+    console.log(`[ Error ] : Claim mission failed. ${error.message}`);
   }
 };

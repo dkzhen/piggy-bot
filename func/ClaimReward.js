@@ -44,7 +44,7 @@ exports.claimRewards = async () => {
               }
             );
 
-            console.log(claim.data);
+            `[ Running ] : Farming rewards successfully claimed. ${claim.data}`;
             const start = await axios.post(
               "https://game-domain.blum.codes/api/v1/farming/start",
               {},
@@ -57,18 +57,17 @@ exports.claimRewards = async () => {
             console.log(start.data);
           } catch (error) {
             if (error.response.status === 425) {
-              console.log("It's too early to claim");
+              console.log(`[ BOT ] : It's too early to claim`);
             }
           }
         } else {
-          console.log("no need claim farming");
+          console.log(`[ completed ] : No need claim farming.`);
         }
       } catch (error) {
-        console.log("error from claim farming");
+        console.log(`[ Error ] : error from claim farming. ${error.message}`);
       }
     }
   } catch (error) {
-    console.log(error.message);
-    console.log("error from claim rewards");
+    console.log(`[ Error ] : error from claim rewards. ${error.message}`);
   }
 };

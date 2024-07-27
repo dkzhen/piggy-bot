@@ -16,15 +16,7 @@ blum-bot is a Telegram automation tool designed to help you manage and interact 
 
 ### How to use
 
-this bot running on my vps you can add your token query
-
-- open the bot [Group Organizer](https://t.me/GroupOrganizer_Bot)
-- send command `/start`
-- send command `/add`
-- select blum-bot
-- and send your token query (start with `query=`)
-
-OR you can clone repository and add your token query
+you can clone repository and add your token query
 
 - Clone repository
 

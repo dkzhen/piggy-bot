@@ -16,13 +16,14 @@ exports.DailyRewards = async () => {
             },
           }
         );
-
-        console.log(claim.data);
+        console.log(
+          `[ Running ] : Daily rewards successfully claimed. ${claim.data}`
+        );
       } catch (error) {
-        console.log(error.message);
+        console.log(`[ Error ] : Daily rewards failed. ${error.message}`);
       }
     }
   } catch (error) {
-    console.log(error.message);
+    console.log(`[ Error ] : Daily rewards failed. ${error.message}`);
   }
 };
