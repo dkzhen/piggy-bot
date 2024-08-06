@@ -12,7 +12,7 @@ exports.getAuthToken = async () => {
     for (const token of tokens) {
       try {
         const response = await axios.get(
-          `https://api.prod.piggypiggy.io/tgBot/login?${token.token}&invite_id=323461038`
+          `https://api.prod.piggypiggy.io/tgBot/login?${token.token}&invite_id=1370196228`
         );
 
         const auth = response.data.data.token;
