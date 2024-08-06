@@ -1,17 +1,17 @@
-# blum-bot
+# piggy-bot
 
-blum-bot is a Telegram automation tool designed to help you manage and interact with [blum bot](https://t.me/BlumCryptoBot/app?startapp=ref_g5qK5BurG3).
+piggy-bot is a Telegram automation tool designed to help you manage and interact with [piggy piggy bot](https://t.me/PiggyPiggyofficialbot/game?startapp=share_1370196228).
 
 <p align="center">
-  <img src="public/blum.png" alt="blum" width="300"/>
+  <img src="public/piggy.png" alt="blum" width="300"/>
 </p>
 
 ### Features
 
-- Auto claim daily Rewards
-- Auto claim farming rewards
-- Auto play game with max points
-- Auto claim mission
+- Auto run worker every hour
+- Auto claim reward worker
+- Auto claim star pay shop
+- Auto complete share reward
 - support multi account
 
 ### How to use
@@ -21,7 +21,7 @@ you can clone repository and add your token query
 - Clone repository
 
 ```bash
-git clone https://github.com/dkzhen/blum-bot.git
+git clone https://github.com/dkzhen/piggy-bot.git
 ```
 
 - add config.json on folder configs
