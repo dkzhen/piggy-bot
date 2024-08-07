@@ -6,13 +6,19 @@ const { getAuthToken } = require("./func/getAuthToken");
 const { validateToken } = require("./func/CheckValidToken");
 const { Task } = require("./func/Task");
 const { CreateStarPay } = require("./func/CreateStarPay");
+const { initTask } = require("./func/initTask");
 configDotenv();
 // Schedule the task to run every hour on the hour
+const main = async () => {
+  await initTask();
+  await Task();
+  CreateStarPay();
+};
 
-Task();
-CreateStarPay();
-cron.schedule("0 0 * * *", Task);
-cron.schedule("0 0 * * *", CreateStarPay);
+main();
+cron.schedule("0 * * * *", CreateStarPay);
+cron.schedule("0 * * * *", Task);
+cron.schedule("0 0 * * *", initTask);
 
 // Start the server
 const port = process.env.PORT || 104;

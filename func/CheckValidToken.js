@@ -10,7 +10,7 @@ exports.validateToken = async () => {
   const validToken = [];
   for (const token of tokens) {
     try {
-      const info = await axios.post(
+      await axios.post(
         API_URL,
         {
           PlayerID: 0,
@@ -21,13 +21,6 @@ exports.validateToken = async () => {
           },
         }
       );
-      const infoUsers = info.data.data.mapTask;
-      if (infoUsers) {
-        console.log(`[ BOT ] : Info mission`);
-        console.log(
-          `[ BOT ] : taskID : ${infoUsers["1001"].taskID} - Completed : ${infoUsers["1001"].compeleteCount}/2\n[ BOT ] : taskID : ${infoUsers["1002"].taskID} - Completed : ${infoUsers["1002"].compeleteCount}/5\n[ BOT ] : taskID : ${infoUsers["1003"].taskID} - Completed : ${infoUsers["1003"].compeleteCount}/8\n[ BOT ] : taskID : ${infoUsers["1004"].taskID} - Completed : ${infoUsers["1004"].compeleteCount}/8\n[ BOT ] : taskID : ${infoUsers["1005"].taskID} - Completed : ${infoUsers["1005"].compeleteCount}/5\n[ BOT ] : taskID : ${infoUsers["1006"].taskID} - Completed : ${infoUsers["1006"].compeleteCount}/5\n[ BOT ] : taskID : ${infoUsers["9002"].taskID} - Completed : ${infoUsers["9002"].compeleteCount}/1`
-        );
-      }
 
       console.log(`[ BOT ] : Checking token done..`);
       validToken.push(token);
