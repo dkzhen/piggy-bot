@@ -18,7 +18,7 @@ const main = async () => {
 main();
 cron.schedule("0 * * * *", CreateStarPay);
 cron.schedule("0 * * * *", Task);
-cron.schedule("0 0 * * *", initTask);
+cron.schedule("0 * * * *", initTask);
 
 // Start the server
 const port = process.env.PORT || 104;
