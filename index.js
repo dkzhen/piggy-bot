@@ -7,12 +7,13 @@ const { validateToken } = require("./func/CheckValidToken");
 const { Task } = require("./func/Task");
 const { CreateStarPay } = require("./func/CreateStarPay");
 const { initTask } = require("./func/initTask");
+const { CheckIn } = require("./func/checkIn");
 configDotenv();
 // Schedule the task to run every hour on the hour
 const main = async () => {
   await initTask();
-  await Task();
-  CreateStarPay();
+  // await Task();
+  // CreateStarPay();
 };
 
 main();
@@ -29,5 +30,6 @@ app.get("/", (req, res) => {
 });
 
 app.listen(port, async () => {
+  CheckIn();
   console.log(`Server is running on port ${port}`);
 });

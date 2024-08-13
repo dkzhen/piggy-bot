@@ -4,6 +4,7 @@ const { validateToken } = require("./CheckValidToken");
 exports.initTask = async () => {
   try {
     const tokens = await validateToken();
+    const taskID = [1001, 1002, 1003, 1004, 1005, 1006, 9002];
 
     for (const token of tokens) {
       const info = await axios.post(
@@ -17,38 +18,51 @@ exports.initTask = async () => {
           },
         }
       );
-      const taskID = [1001, 1002, 1003, 1004, 1005, 1006, 9002];
 
-      for (const id of taskID) {
-        await axios.post(
-          "https://api.prod.piggypiggy.io/game/TakeTask",
-          { TaskID: id, PlayerID: 0 },
-          {
-            headers: {
-              Authorization: `bearer ${token.token}`,
-            },
-          }
-        );
-        console.log(`[ Running ] : Take task ${id} successfully.`);
-        console.log(`[ BOT ] : Wait 60 second to completed task...`);
-        await new Promise((resolve) => setTimeout(resolve, 60000));
-        await axios.post(
-          "https://api.prod.piggypiggy.io/game/CompleteTask",
-          { TaskID: id, PlayerID: 0 },
-          {
-            headers: {
-              Authorization: `bearer ${token.token}`,
-            },
-          }
-        );
-        console.log(`[ Completed ] : Task ${id} successfully.`);
+      const mapTask = info.data.data.mapTask || {};
+
+      // Check if all tasks in taskID are already in mapTask
+      const missingTasks = taskID.filter((id) => !mapTask[id]);
+
+      if (missingTasks.length > 0) {
+        for (const id of missingTasks) {
+          const result = await axios.post(
+            "https://api.prod.piggypiggy.io/game/TakeTask",
+            { TaskID: id, PlayerID: 0 },
+            {
+              headers: {
+                Authorization: `bearer ${token.token}`,
+              },
+            }
+          );
+          console.log(result.data);
+          console.log(`[ Running ] : Take task ${id} successfully.`);
+          console.log(`[ BOT ] : Wait 60 seconds to complete task...`);
+          await new Promise((resolve) => setTimeout(resolve, 60000));
+          await axios.post(
+            "https://api.prod.piggypiggy.io/game/CompleteTask",
+            { TaskID: id, PlayerID: 0 },
+            {
+              headers: {
+                Authorization: `bearer ${token.token}`,
+              },
+            }
+          );
+          console.log(`[ Completed ] : Task ${id} successfully.`);
+        }
+      } else {
+        console.log(`[ BOT ] : All tasks are already present.`);
       }
-      if (info.data.data.mapTask) {
-        console.log(`[ BOT ] : Info mission`);
+
+      console.log(`[ BOT ] : Info mission`);
+      taskID.forEach((id) => {
+        const taskInfo = mapTask[id] || {};
         console.log(
-          `[ BOT ] : taskID : ${infoUsers["1001"].taskID} - Completed : ${infoUsers["1001"].compeleteCount}/2\n[ BOT ] : taskID : ${infoUsers["1002"].taskID} - Completed : ${infoUsers["1002"].compeleteCount}/5\n[ BOT ] : taskID : ${infoUsers["1003"].taskID} - Completed : ${infoUsers["1003"].compeleteCount}/8\n[ BOT ] : taskID : ${infoUsers["1004"].taskID} - Completed : ${infoUsers["1004"].compeleteCount}/8\n[ BOT ] : taskID : ${infoUsers["1005"].taskID} - Completed : ${infoUsers["1005"].compeleteCount}/5\n[ BOT ] : taskID : ${infoUsers["1006"].taskID} - Completed : ${infoUsers["1006"].compeleteCount}/5\n[ BOT ] : taskID : ${infoUsers["9002"].taskID} - Completed : ${infoUsers["9002"].compeleteCount}/1`
+          `[ BOT ] : taskID : ${taskInfo.taskID || id} - Completed : ${
+            taskInfo.compeleteCount || 0
+          }/${taskInfo.taskID === 9002 ? 1 : taskInfo.taskID ? 5 : 0}`
         );
-      }
+      });
     }
   } catch (error) {
     console.log(error.message);
