@@ -19,7 +19,6 @@ exports.CheckIn = async () => {
           }
         )
         .then((response) => {
-          console.log(response.data);
           console.log(
             `[ Running ] : CheckIn successfully. retCode: ${response.data.code}`
           );

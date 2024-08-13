@@ -17,7 +17,9 @@ exports.CreateStarPay = async () => {
         )
         .then((response) => {
           console.log(
-            `[ Running ] : Create StarPay successfully. retCode: ${response.data.data.retCode}`
+            `[ Running ] : Create StarPay successfully. retCode: ${
+              response.data.data.retCode || response.data.code
+            }`
           );
         })
         .catch((error) => {

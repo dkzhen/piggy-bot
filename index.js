@@ -12,9 +12,10 @@ configDotenv();
 // Schedule the task to run every hour on the hour
 const main = async () => {
   await initTask();
-  // await Task();
-  // CreateStarPay();
+  await Task();
 };
+CreateStarPay();
+CheckIn();
 
 main();
 cron.schedule("0 * * * *", CreateStarPay);
@@ -30,6 +31,5 @@ app.get("/", (req, res) => {
 });
 
 app.listen(port, async () => {
-  CheckIn();
   console.log(`Server is running on port ${port}`);
 });
